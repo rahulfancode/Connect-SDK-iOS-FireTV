@@ -26,6 +26,7 @@
 #import "FireTVCapabilityMixin.h"
 #import "FireTVMediaControl.h"
 #import "FireTVMediaPlayer.h"
+#import "FireTVVolumeControl.h"
 
 #import <AmazonFling/RemoteMediaPlayer.h>
 
@@ -108,6 +109,15 @@ NSString *const kConnectSDKFireTVServiceId = @"FireTV";
     }
 
     return _fireTVMediaControl;
+}
+
+- (FireTVVolumeControl * __nonnull)fireTVVolumeControl {
+    if(!_fireTVVolumeControl) {
+        _fireTVVolumeControl = [FireTVVolumeControl new];
+        _fireTVVolumeControl.capabilityMixin = self.capabilityMixin;
+    }
+    
+    return _fireTVVolumeControl;
 }
 
 - (id<RemoteMediaPlayer> __nullable)remoteMediaPlayer {
@@ -199,6 +209,10 @@ NSString *const kConnectSDKFireTVServiceId = @"FireTV";
     return self.fireTVMediaControl;
 }
 
+#pragma mark - VolumeControl
+- (id<VolumeControl>)volumeControl {
+    return self.fireTVVolumeControl;
+}
 #pragma mark - Message Forwarding
 
 // All other capability methods are forwarded to the corresponding capability

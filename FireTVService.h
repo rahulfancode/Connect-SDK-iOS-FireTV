@@ -20,10 +20,12 @@
 
 #import "DeviceService.h"
 #import "MediaPlayer.h"
+#import "VolumeControl.h"
 
 @class AppStateChangeNotifier;
 @class FireTVMediaControl;
 @class FireTVMediaPlayer;
+@class FireTVVolumeControl;
 @protocol BlockRunner;
 @protocol RemoteMediaPlayer;
 
@@ -43,7 +45,7 @@ extern NSString *const kConnectSDKFireTVServiceId;
  * Using Connect SDK for discovery/control of Fire TV devices will result in
  * your app complying with the Amazon Fling SDK terms of service.
  */
-@interface FireTVService : DeviceService <MediaControl, MediaPlayer>
+@interface FireTVService : DeviceService <MediaControl, MediaPlayer, VolumeControl>
 
 /// The @c BlockRunner instance specifying where to run delegate callbacks. The
 /// default value is the main dispatch queue runner. Cannot be @c nil, as it
@@ -55,6 +57,9 @@ extern NSString *const kConnectSDKFireTVServiceId;
 
 /// Object that controls @c MediaControl functionality.
 @property (nonatomic, strong) FireTVMediaControl *fireTVMediaControl;
+
+/// Object that controls @c VolumeControl functionality.
+@property (nonatomic, strong) FireTVVolumeControl * fireTVVolumeControl;
 
 /// A @c RemoteMediaPlayer that's controlled by this service instance. It's
 /// returned from the @c ServiceDescription object, and thus can be @c nil if
